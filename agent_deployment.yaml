@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-agent5
+  name: ${AGENT_NAME}
   labels:
     app.kubernetes.io/component: jenkins-master
     app.kubernetes.io/instance: jenkinst-yamltest
@@ -24,14 +24,15 @@ spec:
         helm.sh/chart: jenkins-1.9.2
     spec:
       containers:
-      - name: jenkins-agent5
+      - name: ${AGENT_NAME}
         image: jenkins/jnlp-slave
         env:
         # Define the environment variable
         - name: JENKINS_TUNNEL
           value: jenkinst-yamltest-agent:50000
         - name: JENKINS_AGENT_NAME
-          value: jenkins-agent5
+          value: ${AGENT_NAME}
         - name: JENKINS_URL
           value: http://10.1.175.172/test3514
         - name: JENKINS_SECRET
+          value: ${JENKINS_SECRET}
